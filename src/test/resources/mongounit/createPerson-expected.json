@@ -1,0 +1,46 @@
+[
+  {
+    "collectionName": "positions",
+    "documents": [
+      {
+        "positionName": "Builder",
+        "created": {
+          "$$DATE_TIME": "2019-10-28T16:26:10.247Z",
+          "comparator": "<"
+        },
+        "updated": {
+          "$$DATE_TIME": "2019-10-28T16:26:10.247Z",
+          "comparator": "<"
+        }
+      }
+    ]
+  },
+  {
+    "collectionName": "people",
+    "documents": [
+      {
+        "favColors": [
+          "red",
+          "green"
+        ],
+        "address": {
+          "zipcode": 12345,
+          "street": "12 Builder St."
+        },
+        "positionId": {
+          "$$": null,
+          "comparator": "!="
+        },
+        "name": "Bob The Builder",
+        "created": {
+          "$$DATE_TIME": "2019-10-28T16:26:10.247Z",
+          "comparator": "<"
+        },
+        "updated": {
+          "$$DATE_TIME": "2019-10-28T16:26:10.247Z",
+          "comparator": "<"
+        }
+      }
+    ]
+  }
+]
