@@ -18,7 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-@MongoUnitTest
+@MongoUnitTest(name = "personDaoService")
 @DisplayName("MongoPersonDaoService with MongoUnit testing framework")
 public class MongoPersonDaoServiceIT {
 
@@ -57,13 +57,13 @@ public class MongoPersonDaoServiceIT {
   }
 
   @Test
-  @DisplayName("Create person on a non-empty database with package-relative datasets")
+  @DisplayName("Create person on a non-empty database with classpath root datasets")
   @SeedWithDataset(
-      value = "createPersonWithExistingData-seed.json",
-      locationType = LocationType.CLASS)
+      value = "common/createPersonWithExistingData-seed.json",
+      locationType = LocationType.CLASSPATH_ROOT)
   @AssertMatchesDataset(
-      value = "createPersonWithExistingData-expected.json",
-      locationType = LocationType.CLASS
+      value = "common/createPersonWithExistingData-expected.json",
+      locationType = LocationType.CLASSPATH_ROOT
   )
   void createPersonWithExistingDataWithPackageRelative() {
 
@@ -79,7 +79,7 @@ public class MongoPersonDaoServiceIT {
 
   @Test
   @DisplayName("Update person")
-  @SeedWithDataset("/mongounit/createPersonWithExistingData-seed.json")
+  @SeedWithDataset("createPersonWithExistingData-seed.json")
   @AssertMatchesDataset
   void updatePerson() {
 
@@ -104,7 +104,7 @@ public class MongoPersonDaoServiceIT {
   void updatePersonManualTest() {
 
     // Seed with data
-    MongoUnit.seedWithDataset("/mongounit/createPersonWithExistingData-seed.json");
+    MongoUnit.seedWithDataset("createPersonWithExistingData-seed.json", this.getClass());
 
     // Perform API action
     UpdatePersonRequest updateRequest =
@@ -123,31 +123,24 @@ public class MongoPersonDaoServiceIT {
         "Updated data should be after created date");
 
     // Assert database is in the expected state
-    MongoUnit.assertMatchesDataset("/mongounit/updatePerson-expected.json");
-  }
-
-  //@Test - this is an example if the collections were dropped as part of the implementation
-  @DisplayName("Delete person and drop all collections")
-  @SeedWithDataset("/mongounit/createPersonWithExistingData-seed.json")
-  @AssertMatchesDataset(additionalDataset = false)
-  void deletePerson() {
-    mongoPersonDaoService.deletePerson("5db7545b7b615c739732c777");
+    MongoUnit.assertMatchesDataset("updatePerson-expected.json", this.getClass());
   }
 
   @Test
   @DisplayName("Delete person")
-  @SeedWithDataset("/mongounit/createPersonWithExistingData-seed.json")
+  @SeedWithDataset("createPersonWithExistingData-seed.json")
   @AssertMatchesDataset
   void deletePersonKeepCollections() {
     mongoPersonDaoService.deletePerson("5db7545b7b615c739732c777");
   }
 
+  // Exercise: annotate this method to get the getPerson method
   //@Test
   @DisplayName("Get person")
   void testGetPerson() {
 
     // Step 1: Annotate method with seeded data
-    // @SeedWithDataset("/mongounit/createPersonWithExistingData-seed.json")
+    // @SeedWithDataset("createPersonWithExistingData-seed.json")
 
     // Step 2: Retrieve the person by seeded ID, assert correct data
     // Person person = mongoPersonDaoService.getPerson("5db7545b7b615c739732c777");
@@ -156,8 +149,6 @@ public class MongoPersonDaoServiceIT {
     // Step 3: AssertThrows PersonNotFoundException.class when bad ID is supplied
     // assertThrows(PersonNotFoundException.class, () -> mongoPersonDaoService.getPerson("12345"));
   }
-
-
 }
 
 
