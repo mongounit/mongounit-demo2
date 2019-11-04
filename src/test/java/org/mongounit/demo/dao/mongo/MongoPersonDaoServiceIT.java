@@ -60,10 +60,10 @@ public class MongoPersonDaoServiceIT {
   @DisplayName("Create person on a non-empty database with package-relative datasets")
   @SeedWithDataset(
       value = "createPersonWithExistingData-seed.json",
-      locationType = LocationType.PACKAGE_PLUS_CLASS)
+      locationType = LocationType.CLASS)
   @AssertMatchesDataset(
       value = "createPersonWithExistingData-expected.json",
-      locationType = LocationType.PACKAGE_PLUS_CLASS
+      locationType = LocationType.CLASS
   )
   void createPersonWithExistingDataWithPackageRelative() {
 
