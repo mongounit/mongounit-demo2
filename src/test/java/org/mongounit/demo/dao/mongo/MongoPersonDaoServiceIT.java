@@ -57,6 +57,22 @@ public class MongoPersonDaoServiceIT {
   }
 
   @Test
+  @DisplayName("Create person on a non-empty database with explicit seed")
+  @SeedWithDataset("onePersonToStart.json")
+  @AssertMatchesDataset("expected2People.json")
+  void createPersonWithExistingDataExplicitSeed() {
+
+    CreatePersonRequest request = CreatePersonRequest.builder()
+        .name("Robert")
+        .address(Address.builder().street("13 Builder St.").zipcode(12345).build())
+        .favColors(Arrays.asList("blue", "white"))
+        .positionName("Builder")
+        .build();
+
+    mongoPersonDaoService.createPerson(request);
+  }
+
+  @Test
   @DisplayName("Create person on a non-empty database with classpath root datasets")
   @SeedWithDataset(
       value = "common/createPersonWithExistingData-seed.json",
