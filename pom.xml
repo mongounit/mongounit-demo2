@@ -11,7 +11,7 @@
   </parent>
   <groupId>org.mongounit</groupId>
   <artifactId>mongounit-demo2</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.1.0-SNAPSHOT</version>
   <name>mongounit-demo2</name>
   <description>mongounit-demo2 is a demo project for MongoUnit framework</description>
 
@@ -61,7 +61,7 @@
     <dependency>
       <groupId>org.mongounit</groupId>
       <artifactId>mongounit</artifactId>
-      <version>1.0.0</version>
+      <version>${project.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
